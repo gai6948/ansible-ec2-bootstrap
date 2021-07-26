@@ -1,0 +1,16 @@
+---
+- name: Install common libraries for Ansible
+  apt:
+    name: software-properties-common
+    state: latest
+    update_cache: true
+- name: Add Ansible repository
+  apt_repository:
+    repo: 'ppa:ansible/ansible'
+    state: present
+    update_cache: true
+- name: Install Ansible
+  apt:
+    update_cache: true
+    name: ansible
+    state: latest

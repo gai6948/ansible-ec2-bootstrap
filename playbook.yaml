@@ -1,0 +1,6 @@
+---
+- hosts: jenkins-masters
+  become: true
+  tasks:
+    - import_tasks: tasks/install-java11.yaml
+    - import_tasks: tasks/install-ansible.yaml

@@ -1,0 +1,35 @@
+---
+- name: Remove older Docker versions
+  yum:
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
+    state: absent
+- name: Add docker-ce repository
+  yum_repository:
+    name: docker-ce
+    description: Docker CE Repo
+    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+    state: present
+- name: Install Docker CE 18.09.6
+  yum:
+    name:
+      - docker-ce-18.09.6
+      - docker-ce-cli-18.09.6
+      - containerd.io
+- name: Start Docker
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: true
+- name: Add Ubuntu to Docker Group
+  user:
+    name: ubuntu
+    groups: docker
+    append: true

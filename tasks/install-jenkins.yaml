@@ -1,0 +1,19 @@
+---
+- name: Add Jenkins to Docker group
+  user:
+    name: jenkins
+    groups: docker
+    append: true
+- name: Add Jenkins apt key
+  apt_key:
+    url: https://pkg.jenkins.io/debian/jenkins.io.key
+    state: present
+- name: Add stable Jenkins repository
+  apt_repository:
+    repo: deb https://pkg.jenkins.io/debian-stable binary
+    state: present
+- name: Installn Jenkins
+  apt:
+    update_cache: true
+    name: jenkins
+    state: latest

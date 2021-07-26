@@ -1,0 +1,14 @@
+---
+- name: Add Amazon Coretto apt key
+  apt_key:
+    url: https://apt.corretto.aws/corretto.key
+    state: present
+- name: Add stable Amazon Coretto repository
+  apt_repository:
+    repo: deb https://apt.corretto.aws stable main
+    state: present
+- name: Installn Amazon Coretto 11
+  apt:
+    update_cache: true
+    name: java-11-amazon-corretto-jdk
+    state: latest
